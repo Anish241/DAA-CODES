@@ -1,4 +1,4 @@
-//This program solves the 0-1 knapsack problem using branch and bound method.
+
 
 #include <iostream>
 #include <vector>
