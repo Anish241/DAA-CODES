@@ -74,7 +74,7 @@ int main()
     {
         for(int j = 1; j < matrices.size(); j++)
         {
-            cout << dp[i][j] << " ";
+            cout << dp[i][j] << "\t";
         }
         cout << endl;
     }
