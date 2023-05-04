@@ -1,12 +1,10 @@
-
-#include <iostream>
-#include <vector>
-#include <climits>
+#include<iostream>
+#include<vector>
+#include<climits>
 
 using namespace std;
 
-
-void printparanthesis(int i,int j,int n,vector<vector<int>> bracket,char &name)
+void printparenthesis(int i,int j,int n,vector<vector<int>> bracket,char &name)
 {
     if(i==j)
     {
@@ -14,46 +12,42 @@ void printparanthesis(int i,int j,int n,vector<vector<int>> bracket,char &name)
         return;
     }
     cout<<"(";
-    printparanthesis(i,bracket[i][j],n,bracket,name);
-    printparanthesis(bracket[i][j]+1,j,n,bracket,name);
+    printparenthesis(i,bracket[i][j],n,bracket,name);
+    printparenthesis(bracket[i][j]+1,j,n,bracket,name);
     cout<<")";
+    
 }
 
 vector<vector<int>> matrix_chain(vector<int> matrices)
 {
-    vector<vector<int>> dp(matrices.size(), vector<int>(matrices.size(), 0));
-    vector<vector<int>> bracket(matrices.size(), vector<int>(matrices.size(), 0));
-
-    for(int i = 1; i < matrices.size(); i++)
+    vector<vector<int>> bracket(matrices.size(),vector<int>(matrices.size(),0));
+    vector<vector<int>> dp(matrices.size(),vector<int>(matrices.size(),0));
+    for(int i=1;i<matrices.size();i++)
     {
-        dp[i][i] = 0;
+        dp[i][i]=0;
     }
-
-    for(int l = 2; l < matrices.size(); l++)
+    for(int l=2;l<matrices.size();l++)
     {
-        for(int i = 1; i < matrices.size() - l + 1; i++)
+        for(int i=1;i<matrices.size()-l+1;i++)
         {
-            int j = i + l - 1;
-            dp[i][j] = INT_MAX;
-            for(int k = i; k <= j - 1; k++)
-            {
-                int q = dp[i][k] + dp[k + 1][j] + matrices[i - 1] * matrices[k] * matrices[j];
-                if(q < dp[i][j])
-                {
-                    dp[i][j] = q;
-                    bracket[i][j] = k;
-                }
-            }
+             int j= l+i-1;
+             dp[i][j]=INT_MAX;
+             for(int k=i;k<j;k++)
+             {
+                 int q = dp[i][k]+dp[k+1][j]+matrices[i-1]*matrices[k]*matrices[j];
+                 if(q<dp[i][j])
+                 {
+                    dp[i][j]=q;
+                    bracket[i][j]=k;
+                 }
+             }
         }
     }
-
-    char name = 'A';
+     char name = 'A';
     cout << "Optimal Parenthesization is : ";
-    printparanthesis(1, matrices.size() - 1, matrices.size(),bracket, name);
+    printparenthesis(1, matrices.size() - 1, matrices.size(),bracket, name);
     cout << endl;
     return dp;
-   
-    
 
 }
 
